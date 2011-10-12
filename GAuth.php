@@ -20,20 +20,20 @@ class GAuth{
 	}
 	
 	private function _32to64bit($data){
+		// Two 32-bit ints equal one 64-bit int
 		return pack('N*', 0) . pack('N*', $data);
 	}
 	
 	private function _timestamp($binary=FALSE){
 		$time = floor(microtime(true) / $this->keyRegeneration);
 		if($binary){
-			// Two 32-bit ints equal one 64-bit int
 			$time = $this->_32to64bit($time);
 		}
 		return $time;
 	}
 	
 	private function _generateKey($length=16){
-		$alpha = $this->b32->getAlphabet();
+		$alpha = array_merge(range('A','Z'), range(2,7));
 		$len = count($alpha)-1;
 		$this->seed = '';
 		for($i=0; $i<$length; $i++){
@@ -65,13 +65,13 @@ class GAuth{
 		return str_pad($OTP, $this->otpLength, 0, STR_PAD_LEFT);
 	}
 	
-	public function QRCode($key=FALSE){
+	public function QRCode($domain, $key=FALSE){
 		if($key === FALSE){
 			$key = $this->getKey();
 		}
 		return 'https://chart.googleapis.com/chart?'.
 			'chs=200x200&cht=qr&chl='.
-			'otpauth://totp/nticompassinc.com?secret='.$key;
+			'otpauth://totp/'.$domain.'?secret='.$key;
 	}
 	
 	public function verify($otp, $key=FALSE, $window=2){
@@ -85,6 +85,7 @@ class GAuth{
 				return true;
 			}
 		}
+		return false;
 	}
 }
 ?>
