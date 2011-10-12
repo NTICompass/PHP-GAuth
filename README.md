@@ -2,7 +2,7 @@ Google Authenticator for PHP
 ============================
 
 This is a Google Authenticator class for PHP.  
-It requires a base32 implementation, you can use mine: https://raw.github.com/NTICompass/PHP-Base32/
+It requires a base32 implementation, you can use mine: https://github.com/NTICompass/PHP-Base32
 
 Usage:
 
