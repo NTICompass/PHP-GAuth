@@ -71,7 +71,7 @@ class GAuth{
 		}
 		return 'https://chart.googleapis.com/chart?'.
 			'chs=200x200&cht=qr&chl='.
-			'otpauth://totp/'.$domain.'?secret='.$key;
+			'otpauth://totp/'.urlencode($domain).'?secret='.$key;
 	}
 	
 	public function verify($otp, $key=FALSE, $window=2){
