@@ -69,6 +69,8 @@ class GAuth{
 		if($key === FALSE){
 			$key = $this->getKey();
 		}
+		
+		// https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 		return 'https://chart.googleapis.com/chart?'.
 			'chs=200x200&cht=qr&chl='.
 			'otpauth://totp/'.urlencode($domain).'?secret='.$key;
